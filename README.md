@@ -1,1 +1,1 @@
-# blueprint-connectors-dummytwitter
+# ttc-connectors-dummytwitter

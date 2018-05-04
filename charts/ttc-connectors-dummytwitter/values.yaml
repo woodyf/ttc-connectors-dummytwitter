@@ -18,7 +18,7 @@ image:
   tag: dev
   pullPolicy: IfNotPresent
 service:
-  name: blueprint-connectors-dummytwitter
+  name: ttc-connectors-dummytwitter
   type: ClusterIP
   externalPort: 80
   internalPort: 8080

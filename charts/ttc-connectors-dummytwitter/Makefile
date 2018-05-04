@@ -1,6 +1,6 @@
 CHART_REPO := http://jenkins-x-chartmuseum:8080
 CURRENT=$(pwd)
-NAME := blueprint-connectors-dummytwitter
+NAME := ttc-connectors-dummytwitter
 OS := $(shell uname)
 RELEASE_VERSION := $(shell cat ../../VERSION)
 
