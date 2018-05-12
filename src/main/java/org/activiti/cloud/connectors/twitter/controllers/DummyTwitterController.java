@@ -16,6 +16,11 @@ public class DummyTwitterController {
         this.socialFeedService = socialFeedService;
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/")
+    public String home() {
+        return "Hello From the Dummy Twitter Service";
+    }
+
     @RequestMapping(method = RequestMethod.POST, path = "/feed/start")
     public void startFeed() {
         if (!socialFeedService.isStarted()) {
