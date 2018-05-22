@@ -23,7 +23,7 @@ spec:
         {{- if .Values.global.rabbitmq.host.value }}
           value: {{ .Values.global.rabbitmq.host.value }}
         {{ else }}
-          value: {{ template "fullname" . }}-rabbitmq
+          value: {{ .Release.Name }}-rabbitmq
         {{ end }}
         - name: SPRING_RABBITMQ_USERNAME
           value: {{ .Values.global.rabbitmq.username.value }}
