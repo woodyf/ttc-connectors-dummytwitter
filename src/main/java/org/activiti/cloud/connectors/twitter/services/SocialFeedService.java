@@ -51,7 +51,8 @@ public class SocialFeedService {
 
             Tweet t = new Tweet(tweetEntity.getText(),
                                 tweetEntity.getAuthor(),
-                                tweetEntity.getLang());
+                                tweetEntity.getLang(),
+                                System.currentTimeMillis());
 
             tweet(t);
         }

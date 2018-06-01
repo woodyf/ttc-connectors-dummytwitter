@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity(name="tweet")
+@Entity(name = "tweet")
 public class TweetEntity {
 
     @Id
@@ -20,7 +20,6 @@ public class TweetEntity {
     private String author;
     @Column(nullable = false)
     private String lang;
-
 
     public String getText() {
         return text;
