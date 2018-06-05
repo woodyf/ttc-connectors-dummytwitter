@@ -9,11 +9,14 @@ import org.activiti.cloud.connectors.twitter.model.Tweet;
 import org.activiti.cloud.connectors.twitter.model.TweetEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import static net.logstash.logback.marker.Markers.append;
 
 @Service
 @EnableBinding(CampaignMessageChannels.class)
@@ -23,6 +26,9 @@ public class SocialFeedService {
     private AtomicBoolean started = new AtomicBoolean(false);
     private final MessageChannel campaignProducer;
     private final TweetRepository tweetRepository;
+
+    @Value("${spring.application.name}")
+    private String appName;
 
     public SocialFeedService(MessageChannel campaignProducer,
                              TweetRepository tweetRepository) {
@@ -35,12 +41,14 @@ public class SocialFeedService {
     }
 
     public void start() {
-        logger.info("Starting Dummy Feed");
+        logger.info(append("service-name",
+                           appName),">>> Starting Dummy Feed");
         started.set(true);
     }
 
     public void stop() {
-        logger.info("Stopping Dummy Feed");
+        logger.info(append("service-name",
+                           appName),">>> Stopping Dummy Feed");
         started.set(false);
     }
 
@@ -54,14 +62,22 @@ public class SocialFeedService {
                                 tweetEntity.getLang(),
                                 System.currentTimeMillis());
 
-            tweet(t);
+            consumeTweet(t);
         }
     }
 
-    public void tweet(Tweet t) {
-        logger.info(">> Tweeting: " + t);
+    public void consumeTweet(Tweet t) {
+        logger.info(append("service-name",
+                           appName),">>> Consuming Tweet: " + t);
         campaignProducer.send(MessageBuilder.withPayload(t).setHeader("lang",
                                                                       t.getLang()).build());
+    }
+
+    public void produceTweet(String to,
+                             String text) {
+        logger.info(append("service-name",
+                           appName),
+                    ">>> Producing Tweet to: " + to + " - Text: " + text);
     }
 
     public TweetEntity getRandomTweet() {

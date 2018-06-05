@@ -2,6 +2,7 @@ package org.activiti.cloud.connectors.twitter.controllers;
 
 import org.activiti.cloud.connectors.twitter.model.Tweet;
 import org.activiti.cloud.connectors.twitter.services.SocialFeedService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +19,7 @@ public class DummyTwitterController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public String home() {
-        return "Hello From the Dummy Twitter Service";
+        return "Hello From the Trending Topic Campaigns: Dummy Twitter Connector Service";
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/feed/start")
@@ -41,8 +42,8 @@ public class DummyTwitterController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/feed/tweet")
-    public void postTweet(@RequestBody Tweet t) {
-        socialFeedService.tweet(t);
+    public void consumeTweet(@RequestBody Tweet t) {
+        socialFeedService.consumeTweet(t);
     }
 }
 
