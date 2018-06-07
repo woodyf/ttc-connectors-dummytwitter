@@ -12,27 +12,29 @@ At the same time this connector simulates the functionality of publishing a new 
 
 In order to run this project locally, you need to clone the source code and then run inside the root directory
 
-> mvn -Dserver.port=808<x> -Dspring.rabbitmq.host=localhost spring-boot:run
+> mvn -Dserver.port=808x spring-boot:run
 
-**Note**: replace <x> for your desired port number
+**Note**: replace "x" for your desired port number
 
 You can use the following docker-compose file in order to start Rabbit MQ so the service can connect and send messages.
 
 
 
 # Endpoints
-- GET http://localhost:808<x>/ -> welcome message
-- GET http://localhost:808<x>/feed/ -> returns false if the feed is stopped or true if the feed is active
-- POST http://localhost:808<x>/feed/start -> starts the feed
-- POST http://localhost:808<x>/feed/stop -> stop the feed
-- POST http://localhost:808<x>/feed/tweet -> with tweet body will send a single tweet
+- GET http://localhost:808x/ -> welcome message
+- GET http://localhost:808x/feed/ -> returns false if the feed is stopped or true if the feed is active
+- POST http://localhost:808x/feed/start -> starts the feed
+- POST http://localhost:808x/feed/stop -> stop the feed
+- POST http://localhost:808x/feed/tweet -> with tweet body will send a single tweet
 
-# Tweet Format
->{
+# Single Input Tweet Format
+```json
+{
   "text": "Hey this is my first tweet",
-    "author": "salaboy",
-    "lang": "en"
+  "author": "salaboy",
+  "lang": "en"
 }
+```
 
 # Configuration
 The feed can be configured by changing the properties inside the application.properties file.
