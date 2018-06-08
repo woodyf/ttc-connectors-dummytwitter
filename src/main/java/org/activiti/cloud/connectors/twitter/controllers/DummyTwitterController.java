@@ -8,6 +8,7 @@ import org.activiti.cloud.connectors.twitter.model.Home;
 import org.activiti.cloud.connectors.twitter.model.Tweet;
 import org.activiti.cloud.connectors.twitter.services.SocialFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
+@RefreshScope
 public class DummyTwitterController {
 
     private SocialFeedService socialFeedService;
