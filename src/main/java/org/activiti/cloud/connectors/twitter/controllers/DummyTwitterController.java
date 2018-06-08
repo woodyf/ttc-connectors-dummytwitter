@@ -32,11 +32,12 @@ public class DummyTwitterController {
     private FeedConfiguration feedConfiguration;
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    public ResponseEntity<Resource<Home>> home() {
+    public Resource<Home> home() {
         Home home = new Home();
         home.setProperty("rate", String.valueOf(feedConfiguration.getRate()));
-        return ResponseEntity.ok(new Resource<>(home,
-                                                getHomeLinks()));
+        home.setProperty("isStarted", String.valueOf(socialFeedService.isStarted()));
+        return new Resource<>(home,
+                                                getHomeLinks());
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/feed/start")

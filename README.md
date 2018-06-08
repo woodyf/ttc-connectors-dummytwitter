@@ -21,7 +21,7 @@ You can use the following docker-compose file in order to start Rabbit MQ so the
 
 
 # Endpoints
-- GET http://localhost:808x/ -> welcome message
+- GET http://localhost:808x/ -> welcome message, configuration properties and HAL Links to other endpoints
 - GET http://localhost:808x/feed/ -> returns false if the feed is stopped or true if the feed is active
 - POST http://localhost:808x/feed/start -> starts the feed
 - POST http://localhost:808x/feed/stop -> stop the feed
