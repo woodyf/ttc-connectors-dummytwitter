@@ -52,7 +52,7 @@ public class SocialFeedService {
         started.set(false);
     }
 
-    @Scheduled(fixedRateString = "${tweet.rate}")
+    @Scheduled(fixedRateString = "${feed.rate}")
     public void startProcessWithTweet() {
         if (started.get()) {
             TweetEntity tweetEntity = getRandomTweet();
