@@ -27,6 +27,10 @@ You can use the following docker-compose file in order to start Rabbit MQ so the
 - POST http://localhost:808x/feed/stop -> stop the feed
 - POST http://localhost:808x/feed/tweet -> with tweet body will send a single tweet
 
+Spring Boot / Spring Cloud Actuators
+-GET http://localhost:808x/actuator -> list of all the actuators available
+-GET http://localhost:808x/actuator/configprops -> configuration properties
+
 # Single Input Tweet Format
 ```json
 {
@@ -40,4 +44,4 @@ You can use the following docker-compose file in order to start Rabbit MQ so the
 The feed can be configured by changing the properties inside the application.properties file.
 
 Tweet Feed Rate in milliseconds (1 tweet per second = 1000)
-> tweet.rate=1000
+> feed.rate=1000
