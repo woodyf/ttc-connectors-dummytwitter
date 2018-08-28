@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@RequestMapping(path = "/v1")
 @RestController
 @RefreshScope
 public class DummyTwitterController {
