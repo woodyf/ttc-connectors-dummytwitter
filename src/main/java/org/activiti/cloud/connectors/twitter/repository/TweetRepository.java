@@ -1,4 +1,4 @@
-package org.activiti.cloud.connectors.twitter;
+package org.activiti.cloud.connectors.twitter.repository;
 
 import org.activiti.cloud.connectors.twitter.model.TweetEntity;
 import org.springframework.data.repository.CrudRepository;

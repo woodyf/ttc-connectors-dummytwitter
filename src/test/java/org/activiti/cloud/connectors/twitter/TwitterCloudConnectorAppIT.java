@@ -16,50 +16,48 @@
 
 package org.activiti.cloud.connectors.twitter;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.activiti.cloud.connectors.twitter.repository.TweetRepository;
 import org.activiti.cloud.connectors.twitter.services.SocialFeedService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.*;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles(TwitterCloudConnectorAppIT.TWITTER_CLOUD_CONNECTOR_APP_IT)
-public class TwitterCloudConnectorAppIT {
+class TwitterCloudConnectorAppIT {
 
-    public static final String TWITTER_CLOUD_CONNECTOR_APP_IT = "TwitterCloudConnectorAppIT";
+	public static final String TWITTER_CLOUD_CONNECTOR_APP_IT = "TwitterCloudConnectorAppIT";
 
-    @Autowired
-    private ApplicationContext context;
+	@Autowired
+	private ApplicationContext context;
 
-    @Autowired
-    private TweetRepository tweetRepository;
+	@Autowired
+	private TweetRepository tweetRepository;
 
-    @Autowired
-    private SocialFeedService socialFeedService;
+	@Autowired
+	private SocialFeedService socialFeedService;
 
-    @Test
-    public void shouldLoadContext() throws Exception {
+	@Test
+	void shouldLoadContext() throws Exception {
 
-        //then
-        assertThat(context).isNotNull();
-    }
+		// then
+		assertThat(context).isNotNull();
+	}
 
-    @Test
-    public void shouldLoadData() throws Exception {
+	@Test
+	void shouldLoadData() throws Exception {
 
-        //then
-        assertThat(tweetRepository.findAll()).isNotEmpty();
-        assertThat(tweetRepository.count()).isGreaterThan(0);
-    }
+		// then
+		assertThat(tweetRepository.findAll()).isNotEmpty();
+		assertThat(tweetRepository.count()).isPositive();
+	}
 
-    @Test
-    public void shouldRetrieveRandomTweet() throws Exception {
-        assertThat(socialFeedService.getRandomTweet()).isNotNull();
-    }
+	@Test
+	void shouldRetrieveRandomTweet() throws Exception {
+		assertThat(socialFeedService.getRandomTweet()).isNotNull();
+	}
 }

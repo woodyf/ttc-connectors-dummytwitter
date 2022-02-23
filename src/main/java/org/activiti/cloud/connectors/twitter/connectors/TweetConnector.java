@@ -1,9 +1,10 @@
 package org.activiti.cloud.connectors.twitter.connectors;
 
+import static net.logstash.logback.marker.Markers.append;
+
 import java.util.HashMap;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.cloud.api.process.model.IntegrationRequest;
 import org.activiti.cloud.api.process.model.IntegrationResult;
 import org.activiti.cloud.connectors.starter.channels.IntegrationResultSender;
@@ -20,47 +21,42 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import static net.logstash.logback.marker.Markers.append;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 @EnableBinding(TweetConnectorChannels.class)
 public class TweetConnector {
 
-    private final IntegrationResultSender integrationResultSender;
-    private Logger logger = LoggerFactory.getLogger(TweetConnector.class);
-    @Value("${spring.application.name}")
-    private String appName;
-    @Autowired
-    private ObjectMapper mapper;
-    @Autowired
-    private SocialFeedService socialFeedService;
-    @Autowired
-    private ConnectorProperties connectorProperties;
+	private final IntegrationResultSender integrationResultSender;
+	private Logger logger = LoggerFactory.getLogger(TweetConnector.class);
+	@Value("${spring.application.name}")
+	private String appName;
+	@Autowired
+	private ObjectMapper mapper;
+	@Autowired
+	private SocialFeedService socialFeedService;
+	@Autowired
+	private ConnectorProperties connectorProperties;
 
-    public TweetConnector(IntegrationResultSender integrationResultSender) {
-        this.integrationResultSender = integrationResultSender;
-    }
+	public TweetConnector(IntegrationResultSender integrationResultSender) {
+		this.integrationResultSender = integrationResultSender;
+	}
 
-    @StreamListener(value = TweetConnectorChannels.TWEET_CONSUMER)
-    public void tweetRewards(IntegrationRequest event) {
-        List rewards = (List) event.getIntegrationContext().getInBoundVariables().get("rewards");
-        if (rewards != null) {
-            for (Object rewardObject : rewards) {
-                Reward r = mapper.convertValue(rewardObject,
-                                               Reward.class);
+	@StreamListener(value = TweetConnectorChannels.TWEET_CONSUMER)
+	public void tweetRewards(IntegrationRequest event) {
+		List rewards = (List) event.getIntegrationContext().getInBoundVariables().get("rewards");
+		if (rewards != null) {
+			for (Object rewardObject : rewards) {
+				Reward r = mapper.convertValue(rewardObject, Reward.class);
 
-                socialFeedService.produceTweet(r.getRankedAuthor().getUserName(),
-                                               "(" + r.getRewardDate() + "): " + r.getCampaignName() + " -> " + r.getRewardsText());
-            }
-        } else {
-            logger.info(append("service-name",
-                               appName),
-                        ">>> No Rewards Found! ");
-        }
-        Message<IntegrationResult> message = IntegrationResultBuilder.resultFor(event,
-                                                                                connectorProperties)
-                .withOutboundVariables(new HashMap<>())
-                .buildMessage();
-        integrationResultSender.send(message);
-    }
+				socialFeedService.produceTweet(r.getRankedAuthor().getUserName(),
+						"(" + r.getRewardDate() + "): " + r.getCampaignName() + " -> " + r.getRewardsText());
+			}
+		} else {
+			logger.info(append("service-name", appName), ">>> No Rewards Found! ");
+		}
+		Message<IntegrationResult> message = IntegrationResultBuilder.resultFor(event, connectorProperties)
+				.withOutboundVariables(new HashMap<>()).buildMessage();
+		integrationResultSender.send(message);
+	}
 }

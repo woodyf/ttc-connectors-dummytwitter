@@ -7,16 +7,16 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "feed")
 public class FeedConfiguration {
 
-    private int rate = 1000;
+	private int rate = 1000;
 
-    public FeedConfiguration() {
-    }
+	public FeedConfiguration() {
+	}
 
-    public int getRate() {
-        return rate;
-    }
+	public int getRate() {
+		return rate;
+	}
 
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
 }

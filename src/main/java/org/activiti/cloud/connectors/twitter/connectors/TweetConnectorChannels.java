@@ -21,12 +21,9 @@ import org.springframework.messaging.SubscribableChannel;
 
 public interface TweetConnectorChannels {
 
-    String TWEET_CONSUMER = "tweetConsumer";
+	String TWEET_CONSUMER = "tweetConsumer";
 
-
-    @Input(TWEET_CONSUMER)
-    SubscribableChannel tweetConsumer();
-
-
+	@Input(TWEET_CONSUMER)
+	SubscribableChannel tweetConsumer();
 
 }

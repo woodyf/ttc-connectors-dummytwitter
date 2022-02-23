@@ -1,12 +1,12 @@
-package org.activiti.cloud.connectors.twitter;
+package org.activiti.cloud.connectors.twitter.connectors;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 
 public interface CampaignMessageChannels {
 
-    String CAMPAIGN_CHANNEL = "campaignProducer";
+	String CAMPAIGN_CHANNEL = "campaignProducer";
 
-    @Output(CAMPAIGN_CHANNEL)
-    MessageChannel campaignProducer();
+	@Output(CAMPAIGN_CHANNEL)
+	MessageChannel campaignProducer();
 }
